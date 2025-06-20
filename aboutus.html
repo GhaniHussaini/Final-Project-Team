@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Final Year Project Team - Biographical and Evaluation Database Management
+      System
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --accent-color: #e74c3c;
+        --light-color: #ecf0f1;
+        --dark-color: #2c3e50;
+        --leader-color: #f39c12;
+        --assistant1-color: #2ecc71;
+        --assistant2-color: #9b59b6;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--secondary-color),
+          var(--primary-color)
+        );
+        color: white;
+        text-align: center;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80")
+          center/cover;
+        opacity: 0.15;
+        z-index: 0;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      h2 {
+        color: var(--primary-color);
+        margin: 2.5rem 0 1.5rem;
+        border-bottom: 3px solid var(--primary-color);
+        padding-bottom: 0.7rem;
+        font-size: 2rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+      }
+
+      .supervisor-section {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        border-left: 6px solid var(--accent-color);
+        transition: transform 0.3s ease;
+      }
+
+      .supervisor-section:hover {
+        transform: translateY(-5px);
+      }
+
+      .supervisor-img {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 3rem;
+        border: 4px solid var(--accent-color);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .leadership-team {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+        margin: 3rem 0;
+      }
+
+      .team-members {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .member-card {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .member-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--primary-color);
+      }
+
+      .leader-card {
+        border-top: 5px solid var(--leader-color);
+      }
+
+      .assistant1-card {
+        border-top: 5px solid var(--assistant1-color);
+      }
+
+      .assistant2-card {
+        border-top: 5px solid var(--assistant2-color);
+      }
+
+      .member-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .member-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 1.5rem;
+        display: block;
+        border: 4px solid var(--primary-color);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .member-card:hover .member-img {
+        transform: scale(1.05);
+        border-color: var(--accent-color);
+      }
+
+      .member-name {
+        text-align: center;
+        font-size: 1.5rem;
+        color: var(--secondary-color);
+        margin-bottom: 0.7rem;
+        font-weight: 600;
+      }
+
+      .member-role {
+        text-align: center;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        position: relative;
+        display: inline-block;
+        padding: 0 1rem;
+      }
+
+      .member-role::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: var(--primary-color);
+      }
+
+      .member-details {
+        margin-top: 1.5rem;
+      }
+
+      .member-details p {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .member-details i {
+        margin-right: 10px;
+        color: var(--primary-color);
+        min-width: 20px;
+      }
+
+      .project-info {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        margin: 3rem 0;
+        border-left: 5px solid var(--primary-color);
+      }
+
+      .project-info p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      footer {
+        background: linear-gradient(
+          135deg,
+          var(--secondary-color),
+          var(--dark-color)
+        );
+        color: white;
+        text-align: center;
+        padding: 2.5rem 0;
+        margin-top: 5rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .social-links a {
+        color: white;
+        font-size: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      .social-links a:hover {
+        transform: translateY(-5px);
+        color: var(--accent-color);
+      }
+
+      .email-link,
+      .phone-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .email-link:hover,
+      .phone-link:hover {
+        color: var(--accent-color);
+        text-decoration: underline;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .tech-badge {
+        background-color: #e0e0e0;
+        color: #333;
+      }
+
+      .responsibility-badge {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      @media (max-width: 768px) {
+        .supervisor-section {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .supervisor-img {
+          margin-right: 0;
+          margin-bottom: 1.5rem;
+        }
+
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="container">
+          <h1>Biographical and Evaluation Database Management System</h1>
+          <p>
+            Final Year Project - Sheikh Zayed University, Faculty of Computer
+            Science, Information System Department
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <div class="container">
+      <section class="project-info">
+        <h2>Project Overview</h2>
+        <p>
+          The Biographical and Evaluation Database Management System is a
+          comprehensive solution designed to streamline human resources
+          management. Our secure and automated system efficiently manages
+          employee biographical data, administrative records, and performance
+          evaluations. Developed using cutting-edge technologies including C#,
+          Visual Studio, SQL Server, and Crystal Report, the system enables
+          detailed record-keeping, automated reporting, and simplified data
+          analysis.
+        </p>
+        <p style="margin-top: 1rem">
+          Featuring an intuitive, user-friendly interface enhanced with Pichon
+          Icons (Icons8), the system incorporates UML diagrams to clearly define
+          its structure and workflows. This makes it an ideal solution for
+          organizations seeking integrated, efficient human resources management
+          with robust reporting capabilities.
+        </p>
+      </section>
+
+      <section>
+        <h2>Project Supervisor</h2>
+        <div class="supervisor-section">
+          <img
+            src="abdulraoufSupervisor.jpg"
+            alt="Supervisor Photo"
+            class="supervisor-img"
+          />
+          <div>
+            <h3>Abdulraouf "Hamoosh"</h3>
+            <p>
+              <strong><i class="fas fa-user-tie"></i> Role:</strong> Project
+              Supervisor
+            </p>
+            <p>
+              <strong><i class="fas fa-university"></i> Department:</strong>
+              Computer Science Information System
+            </p>
+            <p>
+              <strong><i class="fas fa-graduation-cap"></i> Expertise:</strong>
+              Database Systems, Software Engineering, Project Management
+            </p>
+            <p style="margin-top: 1rem">
+              Professor Hamoosh has provided invaluable guidance throughout our
+              project development, offering expert advice on database
+              architecture and system design. With over 15 years of academic
+              experience, his mentorship has been instrumental in shaping our
+              project's success.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Leadership Team</h2>
+        <div class="leadership-team">
+          <div class="member-card leader-card">
+            <img
+              src="ghaniteamLeader.jpg"
+              alt="Team Leader Photo"
+              class="member-img"
+            />
+            <h3 class="member-name">Muhammad Ghani "Hussaini"</h3>
+            <p class="member-role">Team Leader</p>
+            <div class="member-details">
+              <p>
+                <i class="fas fa-tasks"></i> <strong>Responsibilities:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge responsibility-badge"
+                  >Project Management</span
+                >
+                <span class="badge responsibility-badge"
+                  >Technical Leadership</span
+                >
+                <span class="badge responsibility-badge"
+                  >Database Architecture</span
+                >
+                <span class="badge responsibility-badge"
+                  >System Integration</span
+                >
+              </div>
+
+              <p>
+                <i class="fas fa-code"></i> <strong>Specialization:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge tech-badge">SQL Server</span>
+                <span class="badge tech-badge">Oracle</span>
+                <span class="badge tech-badge">Oracle APEX</span>
+                <span class="badge tech-badge">C#</span>
+                <span class="badge tech-badge">Full-stack</span>
+              </div>
+
+              <p>
+                <i class="fas fa-envelope"></i> <strong>Email:</strong>
+                <a href="mailto:ghanihussaini213@gmail.com" class="email-link"
+                  >ghanihussaini213@gmail.com</a
+                >
+              </p>
+              <p>
+                <i class="fas fa-phone"></i> <strong>Phone:</strong>
+                <a href="tel:+93776712348" class="phone-link"
+                  >+93 77 671 2348</a
+                >
+              </p>
+              <p>
+                <i class="fab fa-github"></i> <strong>GitHub:</strong>
+                <a
+                  href="https://github.com/GhaniHussaini/GhaniHussaini.git"
+                  target="_blank"
+                  class="email-link"
+                  >GhaniHussaini</a
+                >
+              </p>
+              <p>
+                <i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong>
+                <a
+                  href="https://www.linkedin.com/in/ghani-hussaini-2a4059346"
+                  target="_blank"
+                  class="email-link"
+                  >ghani-hussaini</a
+                >
+              </p>
+              <p>
+                <i class="fab fa-twitter"></i> <strong>Twitter:</strong>
+                <a
+                  href="https://x.com/ghanihussaini_"
+                  target="_blank"
+                  class="email-link"
+                  >@ghanihussaini_</a
+                >
+              </p>
+            </div>
+          </div>
+
+          <div class="member-card assistant1-card">
+            <img
+              src="zahid.jpg"
+              alt="First Assistant Photo"
+              class="member-img"
+            />
+            <h3 class="member-name">Zahidullah "Sadat"</h3>
+            <p class="member-role">First Assistant</p>
+            <div class="member-details">
+              <p>
+                <i class="fas fa-tasks"></i> <strong>Responsibilities:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge responsibility-badge"
+                  >Project Management</span
+                >
+                <span class="badge responsibility-badge">Communication</span>
+                <span class="badge responsibility-badge"
+                  >Research and Analysis</span
+                >
+                <span class="badge responsibility-badge"
+                  >Advisory and Assistant Support</span
+                >
+              </div>
+
+              <p>
+                <i class="fas fa-code"></i> <strong>Specialization:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge tech-badge">SQL Server</span>
+                <span class="badge tech-badge">Oracle Database APEX</span>
+                <span class="badge tech-badge">Python</span>
+                <span class="badge tech-badge">C#</span>
+              </div>
+
+              <p>
+                <i class="fas fa-envelope"></i> <strong>Email:</strong>
+                <a href="mailto:zahidullahsadat6@gmail.com" class="email-link"
+                  >zahidullahsadat6@gmail.com</a
+                >
+              </p>
+              <p>
+                <i class="fas fa-phone"></i> <strong>Phone:</strong>
+                <a href="tel:0770966279" class="phone-link">0770966279</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="member-card assistant2-card">
+            <img
+              src="Abdulbasveer.jpg"
+              alt="Second Assistant Photo"
+              class="member-img"
+            />
+            <h3 class="member-name">Abdul Basveer "Zaheen"</h3>
+            <p class="member-role">Second Assistant</p>
+            <div class="member-details">
+              <p>
+                <i class="fas fa-tasks"></i> <strong>Responsibilities:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge responsibility-badge">Database Design</span>
+                <span class="badge responsibility-badge"
+                  >Report Generation</span
+                >
+                <span class="badge responsibility-badge"
+                  >Quality Assurance</span
+                >
+              </div>
+
+              <p>
+                <i class="fas fa-code"></i> <strong>Specialization:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge tech-badge">SQL</span>
+                <span class="badge tech-badge">Crystal Reports</span>
+                <span class="badge tech-badge">Data Modeling</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Development Team</h2>
+        <div class="team-members">
+          <div class="member-card">
+            <img
+              src="noor jahan.jpg"
+              alt="Team Member Photo"
+              class="member-img"
+            />
+            <h3 class="member-name">Noor Jahan "Azizi"</h3>
+            <p class="member-role">UI/UX Designer</p>
+            <div class="member-details">
+              <p>
+                <i class="fas fa-tasks"></i> <strong>Responsibilities:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge responsibility-badge">Interface Design</span>
+                <span class="badge responsibility-badge">User Experience</span>
+                <span class="badge responsibility-badge"
+                  >Frontend Development</span
+                >
+              </div>
+
+              <p>
+                <i class="fas fa-code"></i> <strong>Specialization:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge tech-badge">HTML/CSS</span>
+                <span class="badge tech-badge">JavaScript</span>
+                <span class="badge tech-badge">Figma</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="member-card">
+            <img
+              src="Anwar_32.png"
+              alt="Team Member Photo"
+              class="member-img"
+            />
+            <h3 class="member-name">Anwar "Noor"</h3>
+            <p class="member-role">Mobile Developer</p>
+            <div class="member-details">
+              <p>
+                <i class="fas fa-tasks"></i> <strong>Responsibilities:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge responsibility-badge">Mobile Interface</span>
+                <span class="badge responsibility-badge"
+                  >Cross-platform Development</span
+                >
+              </div>
+
+              <p>
+                <i class="fas fa-code"></i> <strong>Specialization:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge tech-badge">Xamarin</span>
+                <span class="badge tech-badge">.NET MAUI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="member-card">
+            <img src="dost m.jpg" alt="Team Member Photo" class="member-img" />
+            <h3 class="member-name">Dost Muhammad "Zadran"</h3>
+            <p class="member-role">Quality Assurance</p>
+            <div class="member-details">
+              <p>
+                <i class="fas fa-tasks"></i> <strong>Responsibilities:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge responsibility-badge">Testing</span>
+                <span class="badge responsibility-badge">Bug Tracking</span>
+                <span class="badge responsibility-badge"
+                  >Performance Optimization</span
+                >
+              </div>
+
+              <p>
+                <i class="fas fa-code"></i> <strong>Specialization:</strong>
+              </p>
+              <div style="margin-left: 1.5rem">
+                <span class="badge tech-badge">Testing Frameworks</span>
+                <span class="badge tech-badge">Debugging</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <div class="container">
+        <h3>Biographical and Evaluation Database Management System</h3>
+        <p>A Final Year Project by Team Hussaini</p>
+        <p>&copy; 2023 All rights reserved</p>
+        <p>
+          Computer Science Information System Department - Sheikh Zayed
+          University, Khost
+        </p>
+
+        <div class="social-links">
+          <a
+            href="https://github.com/GhaniHussaini/GhaniHussaini.git"
+            target="_blank"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/ghani-hussaini-2a4059346"
+            target="_blank"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a href="https://twitter.com/ghanihussaini_" target="_blank"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
